@@ -1,7 +1,17 @@
-import { bootstrapApplication } from '@angular/platform-browser';
-import { App } from './app/app';
-import { config } from './app/app.config.server';
+import 'zone.js/node';
+import { bootstrapApplication, BootstrapContext } from '@angular/platform-browser';
+import { provideServerRendering } from '@angular/ssr';
+import { AppComponent } from './app/app.component';
+import { appConfig } from './app/app.config';
 
-const bootstrap = () => bootstrapApplication(App, config);
+export function bootstrap(context: BootstrapContext) {
+  return bootstrapApplication(AppComponent, {
+    ...appConfig,
+    providers: [
+      ...(appConfig.providers ?? []),
+      provideServerRendering(),
+    ],
+  }, context);
+}
 
 export default bootstrap;

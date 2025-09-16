@@ -1,0 +1,11 @@
+<div *ngIf="loading$ | async">Loading...</div>
+<div *ngIf="error$ | async as err">Error: {{ err }}</div>
+
+<ul>
+  <li *ngFor="let emp of employees$ | async">
+    {{ emp.name }} — {{ emp.role }}
+    <button (click)="deleteEmployee(emp.id)">Delete</button>
+  </li>
+</ul>
+
+<button (click)="addEmployee()">Add Employee</button>
